@@ -5,6 +5,7 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 require("./models/User");
+require("./models/Hospital");
 require("./services/passport");
 
 // Connect to mongoDB
@@ -16,7 +17,11 @@ mongoose.connect(keys.mongoURI, () => {
 const app = express();
 
 // Middlewares
-app.use(bodyParser.json());
+app.use(
+	bodyParser.urlencoded({
+		extended: true,
+	})
+);
 app.use(
 	cookieSession({
 		name: "session",
@@ -28,7 +33,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Importing routes
-require("./routes/authRoutes")(app);
+require("./routes/authUserRoutes")(app);
+require("./routes/authHospitalRoutes")(app);
 
 const PORT = process.env.PORT || 5000;
 

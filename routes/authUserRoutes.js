@@ -2,24 +2,24 @@ const passport = require("passport");
 
 module.exports = (app) => {
 	app.get(
-		"/auth/google",
+		"/auth/user/google",
 		passport.authenticate("google", { scope: ["profile", "email"] })
 	);
 
 	app.get(
-		"/auth/google/callback",
+		"/auth/user/google/callback",
 		passport.authenticate("google"),
 		(req, res) => {
-			res.redirect("/api/current_user");
+			res.redirect("/api/user/current_user");
 		}
 	);
 
-	app.get("/api/logout", (req, res) => {
+	app.get("/api/user/logout", (req, res) => {
 		req.logout();
 		res.redirect("/");
 	});
 
-	app.get("/api/current_user", (req, res) => {
+	app.get("/api/user/current_user", (req, res) => {
 		// Passport attaches user object in request body!
 		res.send(req.user);
 	});
