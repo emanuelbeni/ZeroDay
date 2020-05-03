@@ -6,6 +6,10 @@ const hospitalSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	hospitalUsername: {
+		type: String,
+		required: true,
+	},
 	hospitalAddress: {
 		type: String,
 		required: true,
